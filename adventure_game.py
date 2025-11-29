@@ -1,7 +1,9 @@
 """
 Simple version of an old-fashioned text-based adventure game.
 
-First assignment of the Udacity Introduction to Programming with Python I course.
+First assignment of the Udacity Introduction to Programming with Python I
+ course.
+
 Date: 2025-11-28
 """
 
@@ -24,7 +26,7 @@ LOCATION_SPECIFIC_PROBABILITIES = {
     "open_field": {"knight": 0.4, "troll": 0.3, "villain": 0.4, "fairy": 0.4},
     "ancient_fortress": {
         "knight": 0.5, "troll": 0.3, "villain": 0.1, "fairy": 0.2
-        },
+    },
     "river": {
         "knight": 0.1, "troll": 0.8, "villain": 0.6, "fairy": 0.6
     },
@@ -53,7 +55,7 @@ config = {
     "map": {
         "castle": [
             "cave", "village", "open_field", "ancient_fortress", "ruins"
-            ],
+        ],
         "cave": ["castle", "river", "woods"],
         "village": ["castle", "cave", "open_field", "ancient_fortress"],
         "river": ["cave", "woods"],
@@ -62,7 +64,7 @@ config = {
         "ancient_fortress": ["castle", "cave", "village", "open_field"],
         "ruins": [
             "castle", "cave", "village", "open_field", "ancient_fortress"
-            ],
+        ],
     },
     "chance_of_meeting_a_villain_by_location": build_villain_probabilities(),
     "risks_of_death_by_direct_conflict": {
@@ -76,7 +78,8 @@ config = {
         },
         "villain": {
             "knight": 0.6, "troll": 0.5, "villain": 0.3, "dragon": 0.6,
-            "fairy": 0.9},
+            "fairy": 0.9
+        },
     },
 }
 
@@ -88,7 +91,7 @@ def print_starting_text(main_character: str):
     print("You stand amidst the moss-covered ruins of an ancient fortress.")
     time.sleep(0.1)
     print(
-        "The villagers say a dragon circled this place last night," +
+        "The villagers say a dragon circled this place last night,"
         " drawn by something buried in the rubble."
     )
     time.sleep(0.1)
@@ -111,7 +114,7 @@ def get_location_input(available_locations: List[str]):
     try:
         selected_location_option = int(
             input("Enter the number of the next location: ")
-            )
+        )
         if (
             selected_location_option < 0 or
             selected_location_option >= len(available_locations)
@@ -159,22 +162,24 @@ def play_turn_by_turn_game(
     print(f"You are now in the {selected_location}")
     time.sleep(0.2)
     # sample from chance_of_meeting_a_villain_by_location to see
-    #  who the player will meet in the current location
+    # who the player will meet in the current location
     selected_enemy = select_enemy_by_probability(selected_location)
     print(
-        f"You just met a {selected_enemy}!" +
-        f"The {selected_enemy} wants to fight you!\n\n")
+        f"You just met a {selected_enemy}!"
+        f"The {selected_enemy} wants to fight you!\n\n"
+    )
     # draw the risk of death by direct conflict
     risk_of_death_dict = config["risks_of_death_by_direct_conflict"]
     if selected_player not in risk_of_death_dict:
         raise ValueError(f"Unknown player type: {selected_player}")
     if (
-        selected_enemy not in
-        risk_of_death_dict[selected_player]
+        selected_enemy
+        not in risk_of_death_dict[selected_player]
     ):
         raise ValueError(
-            f"Unknown enemy type: {selected_enemy} for player:" +
-            f" {selected_player}")
+            f"Unknown enemy type: {selected_enemy} for player: "
+            f"{selected_player}"
+        )
 
     selected_risk_of_death = risk_of_death_dict[selected_player][
         selected_enemy
@@ -188,15 +193,16 @@ def play_turn_by_turn_game(
         print(f"The {selected_enemy} attacked you. You died!")
     else:
         print(
-            f"You survived the attack of the {selected_enemy}!" +
-            " You can continue your journey.\n\n")
+            f"You survived the attack of the {selected_enemy}!"
+            " You can continue your journey.\n\n"
+        )
         selected_location = get_next_location(selected_location)
         play_turn_by_turn_game(
             selected_location,
             selected_player,
             turn_count + 1,
             max_turns
-            )
+        )
     return
 
 
