@@ -1,3 +1,10 @@
+"""
+Simple version of an old-fashioned text-based adventure game.
+
+First assignment of the Udacity Introduction to Programming with Python I course.
+Date: 2025-11-28
+"""
+
 # You can use this workspace to write and submit your adventure game project.
 import random
 import time
